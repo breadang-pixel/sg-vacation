@@ -3,3 +3,4 @@ node_modules
 액세스토큰.env
 vacation-data.json
 npm-debug.log*
+Github액세스토큰.env

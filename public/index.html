@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>서광주팀 2026 하반기 휴가계획</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Seogwangju Team Vacation Planner</p>
+          <h1>2026년 7월부터 12월까지<br />서광주팀 휴가계획 취합</h1>
+          <p class="hero-copy">
+            직원이 직접 이름과 휴가 기간을 등록하면 전체 캘린더와 조회 화면에 즉시 반영됩니다.
+            겹치는 휴가가 있으면 안내 팝업으로 바로 확인할 수 있습니다.
+          </p>
+        </div>
+        <div class="hero-stats" id="summaryCards"></div>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-form">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">휴가 등록</p>
+              <h2 id="formTitle">새 휴가 일정 등록</h2>
+            </div>
+            <button class="ghost-button hidden" id="cancelEditButton" type="button">수정 취소</button>
+          </div>
+
+          <form id="vacationForm" class="vacation-form">
+            <label>
+              <span>직원명</span>
+              <input id="employeeName" name="employeeName" type="text" maxlength="40" placeholder="예: 홍길동" required />
+            </label>
+            <label>
+              <span>시작일</span>
+              <input id="startDate" name="startDate" type="date" min="2026-07-01" max="2026-12-31" required />
+            </label>
+            <label>
+              <span>종료일</span>
+              <input id="endDate" name="endDate" type="date" min="2026-07-01" max="2026-12-31" required />
+            </label>
+            <div class="form-actions">
+              <button class="primary-button" type="submit" id="submitButton">휴가계획 저장</button>
+            </div>
+          </form>
+
+          <div class="notice-box">
+            <strong>입력 안내</strong>
+            <p>한 직원이 여러 차례 휴가를 나누어 등록할 수 있습니다. 수정과 삭제는 아래 조회 화면에서 바로 처리할 수 있습니다.</p>
+          </div>
+        </section>
+
+        <section class="panel panel-tabs">
+          <div class="tab-bar">
+            <button class="tab-button active" data-view="calendar" type="button">캘린더</button>
+            <button class="tab-button" data-view="member" type="button">팀원별 휴가 조회</button>
+            <button class="tab-button" data-view="month" type="button">월별 휴가 조회</button>
+          </div>
+
+          <div class="view-panel active" id="calendarView">
+            <div class="legend">
+              <span><i class="legend-dot weekend"></i>주말</span>
+              <span><i class="legend-dot holiday"></i>공휴일</span>
+              <span><i class="legend-dot today"></i>등록된 휴가</span>
+            </div>
+            <div class="month-grid" id="calendarGrid"></div>
+          </div>
+
+          <div class="view-panel" id="memberView">
+            <div id="memberList" class="list-grid"></div>
+          </div>
+
+          <div class="view-panel" id="monthView">
+            <div id="monthList" class="list-grid"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="overlapDialog" class="overlap-dialog">
+      <div class="dialog-body">
+        <p class="section-kicker">겹치는 일정 안내</p>
+        <h3>참고하세요</h3>
+        <div id="overlapMessages" class="overlap-messages"></div>
+        <div class="form-actions">
+          <button class="primary-button" id="closeDialogButton" type="button">확인</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

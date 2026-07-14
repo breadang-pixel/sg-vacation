@@ -1,0 +1,5 @@
+node_modules
+.env
+액세스토큰.env
+vacation-data.json
+npm-debug.log*

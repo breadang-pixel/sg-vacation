@@ -1,0 +1,18 @@
+{
+  "name": "sg-vacation",
+  "version": "1.0.0",
+  "description": "Seogwangju team vacation planning app for Jul-Dec 2026",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "express": "4.22.2",
+    "mysql2": "3.14.1",
+    "pg": "8.16.3"
+  }
+}
+

@@ -72,8 +72,11 @@ function escapeHtml(value) {
 }
 
 function formatDate(dateText) {
-  const date = new Date(`${dateText}T00:00:00`);
-  return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+  const match = String(dateText).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) {
+    return dateText;
+  }
+  return `${Number(match[2])}월 ${Number(match[3])}일`;
 }
 
 function formatRange(startDate, endDate) {
@@ -155,7 +158,7 @@ function summarizeVacations(vacations) {
 
   const byMonth = ["07", "08", "09", "10", "11", "12"].map((month) => {
     const monthStart = `2026-${month}-01`;
-    const monthEnd = new Date(2026, Number(month), 0).toISOString().slice(0, 10);
+    const monthEnd = `2026-${month}-${String(new Date(2026, Number(month), 0).getDate()).padStart(2, "0")}`;
     return {
       month: `2026-${month}`,
       vacations: sortedVacations.filter((item) => item.startDate <= monthEnd && monthStart <= item.endDate),
@@ -225,7 +228,7 @@ function renderMonthCard(monthIndex, vacations) {
 
   for (let day = 1; day <= lastDate; day += 1) {
     const currentDate = new Date(2026, monthIndex, day);
-    const dateText = currentDate.toISOString().slice(0, 10);
+    const dateText = `2026-${String(monthIndex + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
     const weekend = currentDate.getDay() === 0 || currentDate.getDay() === 6;
     const holidayLabel = HOLIDAYS[dateText] || "";
     const activeVacations = vacations.filter((vacation) => isVacationOnDate(vacation, dateText));
@@ -483,3 +486,4 @@ closeDialogButton.addEventListener("click", () => overlapDialog.close());
 bindTabs();
 bindDelegatedActions();
 subscribeVacations();
+
